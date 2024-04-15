@@ -8,55 +8,63 @@ import Typography from "@mui/material/Typography";
 import { MovieT } from "../../types/interfaces";
 
 const styles = {
-    chipSet: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexWrap: "wrap",
-        listStyle: "none",
-        padding: 1.5,
-        margin: 0,
-    },
-    chipLabel: {
-        margin: 0.5,
-    },
+  chipSet: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: 1.5,
+    margin: 0,
+  },
+  chipLabel: {
+    margin: 0.5,
+  },
 };
 
 const MovieDetails: React.FC<MovieT> = (props) => {
+  return (
+    <>
+      <Typography variant="h5" component="h3">
+        Overview
+      </Typography>
 
-    return (
-        <>
-            <Typography variant="h5" component="h3">
-                Overview
-            </Typography>
+      <Typography variant="h6" component="p">
+        {props.overview}
+      </Typography>
 
-            <Typography variant="h6" component="p">
-                {props.overview}
-            </Typography>
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Genres" sx={styles.chipLabel} color="primary" />
+        </li>
+        {props.genres.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name} />
+          </li>
+        ))}
+      </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
+        <Chip icon={<AccessTimeIcon />} label={`${props.runtime} min.`} />
+        <Chip
+          icon={<MonetizationIcon />}
+          label={`${props.revenue.toLocaleString()}`}
+        />
+        <Chip
+          icon={<StarRate />}
+          label={`${props.vote_average} (${props.vote_count}`}
+        />
+        <Chip label={`Released: ${props.release_date}`} />
+      </Paper>
 
-            <Paper component="ul" sx={styles.chipSet}>
-                <li>
-                    <Chip label="Genres" sx={styles.chipLabel} color="primary" />
-                </li>
-                {props.genres.map((g) => (
-                    <li key={g.name}>
-                        <Chip label={g.name} />
-                    </li>
-                ))}
-            </Paper>
-            <Paper component="ul" sx={styles.chipSet}>
-                <Chip icon={<AccessTimeIcon />} label={`${props.runtime} min.`} />
-                <Chip
-                    icon={<MonetizationIcon />}
-                    label={`${props.revenue.toLocaleString()}`}
-                />
-                <Chip
-                    icon={<StarRate />}
-                    label={`${props.vote_average} (${props.vote_count}`}
-                />
-                <Chip label={`Released: ${props.release_date}`} />
-            </Paper>
-        </>
-    );
+      <Paper component="ul" sx={styles.chipSet}>
+        <Chip label="Production Countries" color="primary" ></Chip>
+        {props.production_countries.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name} />
+          </li>
+        ))}
+      </Paper>
+    </>
+  );
 };
 export default MovieDetails;
