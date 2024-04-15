@@ -17,5 +17,12 @@ export interface BaseMovie {
     favourite?: boolean;
   }
   export interface BaseMovieList { 
-    movies: BaseMovie[];
+    movies: BaseMovie[];    
   }   
+
+  export interface MovieT extends BaseMovie {
+    genres: {
+      id: number;
+      name: string;
+    }[];
+  }
