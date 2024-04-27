@@ -25,7 +25,9 @@ const styles = {
     backgroundColor: "rgb(255, 255, 255)",
   },
 };
+
 interface FilterMoviesCardProps {
+  onUserInput: (f: FilterOption, s: string)  => void; 
   titleFilter: string;
   genreFilter: string;
 }
@@ -49,10 +51,11 @@ interface FilterMoviesCardProps {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   
-   const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
-     e.preventDefault()
-     // Completed later
-   };
+    const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
+      e.preventDefault()
+      props.onUserInput(type, value)
+    };
+  
  
    const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
      handleChange(e, "title", e.target.value)

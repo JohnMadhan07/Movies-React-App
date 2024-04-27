@@ -43,3 +43,5 @@ export interface ListedMovie extends BaseMovie {
   }
 
   export type FilterOption = "title" | "genre";
+
+  
