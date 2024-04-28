@@ -20,7 +20,7 @@ const styles = {
 };
 
   const HomePage: React.FC= () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState<ListedMovie[]>([]);
     const [titleFilter, setTitleFilter] = useState("");
     const [genreFilter, setGenreFilter] = useState("0");
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -34,7 +34,12 @@ const styles = {
     .filter((m: ListedMovie) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
-
+    const addToFavourites = (movieId: number) => {
+      const updatedMovies = movies.map((m: ListedMovie) =>
+        m.id === movieId ? { ...m, favourite: true } : m
+      );
+      setMovies(updatedMovies);
+    };
     const handleChange = (type: FilterOption, value: string) => {
       if (type === "title") setTitleFilter(value);
       else setGenreFilter(value);
@@ -62,7 +67,7 @@ const styles = {
           <Header title={"Home Page"} />
         </Grid>
         <Grid item container spacing={5}>
-          <MovieList movies={displayedMovies}></MovieList>
+        <MovieList movies={displayedMovies} selectFavourite={addToFavourites} />
         </Grid>
       </Grid>
       <Fab
@@ -71,7 +76,7 @@ const styles = {
           onClick={() => setDrawerOpen(true)}
           sx={styles.fab}
         >
-          Filter
+          Filter 
       </Fab>
       <Drawer
         anchor="left"
