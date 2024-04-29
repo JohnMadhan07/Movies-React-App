@@ -1,20 +1,9 @@
-import React, { useState, useEffect, FC } from "react";  
+import React from "react";
+import { useState, useEffect, FC } from "react";  
 import { ListedMovie } from "../types/interfaces";
 import MovieListPageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 
-
- 
-const styles = {
-  root: {
-    padding: "20px",
-  }, fab: {
-    marginTop: 8,
-    position: "fixed",
-    top: 2,
-    right: 2,
-  },
-};
 
   const HomePage: FC= () => {
     const [movies, setMovies] = useState<ListedMovie[]>([]);
