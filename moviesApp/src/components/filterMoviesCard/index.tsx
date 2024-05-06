@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
-import { FilterOption } from "../../types/interfaces"
+import React, { ChangeEvent } from "react";  // useState/useEffect redundant 
+import { FilterOption, GenreData } from "../../types/interfaces"; //include GenreData interface 
 import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,6 +12,8 @@ import SortIcon from '@mui/icons-material/Sort';
 import { getGenres } from "../../api/tmdb-api";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useQuery } from "react-query";
+import Spinner from '../spinner'
 
 const styles = {
   root: {
@@ -33,29 +35,32 @@ interface FilterMoviesCardProps {
 }
 
 
-  const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
+const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
+  const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
 
-    const [genres, setGenres] = useState([{ id: '0', name: "All" }])
- 
-    useEffect(() => {
-      getGenres().then((allGenres) => {
-        setGenres([genres[0], ...allGenres]);
-      });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
-      e.preventDefault()
-      props.onUserInput(type, value)
-    };
-  
- 
-   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-     handleChange(e, "title", e.target.value)
-   }
- 
-   const handleGenreChange = (e: SelectChangeEvent) => {
-     handleChange(e, "genre", e.target.value)
-   };
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (isError) {
+    return <h1>{(error as Error).message}</h1>;
+  }
+  const genres = data?.genres || [];
+  if (genres[0].name !== "All") {
+    genres.unshift({ id: "0", name: "All" });
+  }
+
+  const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
+    e.preventDefault()
+    props.onUserInput(type, value)
+  };
+
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChange(e, "title", e.target.value)
+  }
+
+  const handleGenreChange = (e: SelectChangeEvent) => {
+    handleChange(e, "genre", e.target.value)
+  };
    return (
     <>
     <Card sx={styles.root} variant="outlined">
