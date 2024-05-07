@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { UpcomingMovies } from "../types/interfaces";
+import { ListedMovie, UpcomingMovies } from "../types/interfaces";
 import MovieListPageTemplate from "../components/templateMovieListPage";
 import { useQuery } from "react-query";
 import { getUpcomingMovies } from "../api/tmdb-api";
@@ -23,8 +23,8 @@ import Spinner from "../components/spinner";
       <MovieListPageTemplate
       title='Upcoming Movies'
       movies={movies}
-      action={() => {
-        return < AddtoPlaylist />
+      action={(movie: ListedMovie) => {
+        return <AddtoPlaylist {...movie} />
       }}
     />
   );
