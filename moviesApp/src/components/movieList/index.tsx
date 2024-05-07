@@ -14,5 +14,4 @@ const MovieList: React.FC<MovieListProps> = (props) => {
   ));
   return movieCards;
 }
-
   export default MovieList;
