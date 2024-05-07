@@ -69,6 +69,12 @@ export interface ListedMovie extends BaseMovie {
     total_results: number;
     results: BaseMovie[];
   }
+  interface UpcomingMovies {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: ListedMovie[];
+  }
   export interface Review {
     author: string,
     content: string,
