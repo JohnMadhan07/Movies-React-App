@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface BaseMovie {
   title: string;
   budget: number;
@@ -47,7 +49,7 @@ export interface ListedMovie extends BaseMovie {
   export interface MovieListPageTemplateProps {
     movies: ListedMovie[];
     title: string;
-    selectFavourite: (m: number) => void;
+    action: (m: ListedMovie) => React.ReactNode;
   }
   export interface Review{
     id: string;
