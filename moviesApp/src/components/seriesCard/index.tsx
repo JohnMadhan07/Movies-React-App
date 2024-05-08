@@ -13,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import img from '../../images/film-poster-placeholder.png';
 import { BaseSeries } from "../../types/interfaces"; 
+import { Link } from "react-router-dom";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -23,8 +24,7 @@ const styles = {
 };
 
 const SeriesCard: React.FC<BaseSeries> = (props) => {
-
-
+  const series ={...props};
   return (
     <Card sx={styles.card}>
       <CardHeader title={props.original_name} />
@@ -56,9 +56,11 @@ const SeriesCard: React.FC<BaseSeries> = (props) => {
         <IconButton aria-label="add to favorites" >
           <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info ...
-        </Button>
+        <Link to={`/series/${series.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );
