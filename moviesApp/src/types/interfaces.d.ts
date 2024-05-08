@@ -102,7 +102,12 @@ export interface ListedMovie extends BaseMovie {
     total_results: number;
     results: ListedMovie[];
   }
-  
+  interface Similar {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: ListedMovie[];
+  }
   interface TvSeries {
     page: number;	
     total_pages: number;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
@@ -18,13 +18,16 @@ const styles = {
         width: 450,
         height: '100vh',
     },
+    scrollableContainer: {
+        height: '80vh', 
+        overflow: 'auto',
+    },
 };
 
 interface TemplateMoviePageProps {
     movie: MovieT;
-    children: React.ReactElement;
+    children: ReactNode;
 }
-
 
 const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
     const { movie, children } = props;
@@ -38,9 +41,7 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
     }
 
     if (isError) {
-        return <h1>{(error
-
-        ).message}</h1>;
+        return <h1>{error.message}</h1>;
     }
 
     const images = data as MovieImage[];
@@ -49,9 +50,9 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
         <>
             <MovieHeader {...movie} />
 
-            <Grid container spacing={5} style={{ padding: "15px" }}>
+            <Grid container spacing={5} style={{ padding: "15px" }}>        
                 <Grid item xs={3}>
-                    <div>
+                    <div style={styles.scrollableContainer}>
                         <ImageList cols={1}>
                             {images.map((image: MovieImage) => (
                                 <ImageListItem
@@ -68,7 +69,6 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
                         </ImageList>
                     </div>
                 </Grid>
-
                 <Grid item xs={9}>
                     {children}
                 </Grid>
