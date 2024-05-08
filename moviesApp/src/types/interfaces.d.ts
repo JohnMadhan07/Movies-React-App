@@ -18,8 +18,29 @@ export interface BaseMovie {
   vote_count: number;
   favourite?: boolean;
 }
+export interface BaseSeries {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  first_air_date: string;
+  name: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+
 export interface BaseMovieList {
   movies: BaseMovie[];
+}
+export interface BaseSeriesList {
+  series: BaseSeries[];
 }
 
 export interface MovieT extends BaseMovie {
@@ -69,11 +90,24 @@ export interface ListedMovie extends BaseMovie {
     total_results: number;
     results: BaseMovie[];
   }
+  interface DiscoverSeries {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: BaseSeries[];
+  }
   interface UpcomingMovies {
     page: number;	
     total_pages: number;
     total_results: number;
     results: ListedMovie[];
+  }
+  
+  interface TvSeries {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: BaseSeries[];
   }
   export interface Review {
     author: string,
