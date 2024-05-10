@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.3.1",
     "@mui/material": "^5.4.0",
+    "@tanstack/react-query": "^5.35.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
@@ -39,9 +40,9 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "storybook": "^7.6.8",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8",
-    "storybook": "^7.6.8"
+    "vite": "^5.0.8"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -57,4 +58,3 @@
     ]
   }
 }
-
