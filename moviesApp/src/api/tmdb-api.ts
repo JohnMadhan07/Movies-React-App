@@ -1,14 +1,40 @@
-export const getMovies = () => {
+import { getAPIConfig } from "../config";
+
+export const getallreviewsbyreviewer = async () => {
+  const APIConfig = await getAPIConfig();
+  return fetch(`${APIConfig.API.endpoints[0].endpoint}reviews/user1`)
+      .then((res) => res.json())
+      .then((json) => {
+          return json;
+      });
+};
+export const getToken = async () => {
+    const APIConfig = await getAPIConfig();
+    return fetch(`${APIConfig.API.endpoints[1].endpoint}auth/signin`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: "userA", password: "passwA!1" }),
+    })
+        .then((res) => res.json())
+        .then((json) => {
+            return json;
+        });
+};
+
+export const getMovies = (page:number) => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
   ).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
     return response.json();
   })
-    .catch((error) => {
-      throw error
-    });
+  .catch((error) => {
+    throw error;
+  });
 };
 
 export const getMovie = (id: string) => {
