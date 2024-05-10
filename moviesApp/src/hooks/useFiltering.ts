@@ -6,7 +6,7 @@ interface Filter {
     condition: (item: any, value: string) => boolean;
     }
 
-const useFiltering = (data: any[], filters: Filter[]) => {
+const useFiltering = (_data: any[], filters: Filter[]) => {
   const [filterValues, setFilterValues] = useState(() => {
     const filterInitialValues = filters.map((f) => ({
       name: f.name,

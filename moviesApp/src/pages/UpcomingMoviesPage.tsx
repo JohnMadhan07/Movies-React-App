@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { ListedMovie, UpcomingMovies } from "../types/interfaces";
 import MovieListPageTemplate from "../components/templateMovieListPage";
 import { useQuery } from "react-query";
@@ -7,7 +7,7 @@ import AddtoPlaylist from '../components/cardIcons/addToPlaylist'
 import Spinner from "../components/spinner";
 
 
-  const UpcomingMoviesPage: FC= () => {
+  const UpcomingMoviesPage:React.FC = () => {
 
     const { data, error, isLoading, isError } = useQuery<UpcomingMovies, Error>("Upcoming movies", getUpcomingMovies);
     const movies = data ? data.results : [];

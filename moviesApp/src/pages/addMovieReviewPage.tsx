@@ -7,7 +7,7 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import { MovieT } from "../types/interfaces";
 
-const WriteReviewPage: React.FC = (props) => {
+const WriteReviewPage: React.FC = () => {
     const location = useLocation()
     const { movieId } = location.state;
     const { data: movie, error, isLoading, isError } = useQuery<MovieT, Error>(

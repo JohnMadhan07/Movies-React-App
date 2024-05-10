@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Typography from "@mui/material/Typography";
 import { BaseSeries, MovieImage } from "../../types/interfaces";
 import { useQuery } from "react-query";
-import { getMovieImages, getSeriesImages } from "../../api/tmdb-api";
+import { getSeriesImages } from "../../api/tmdb-api";
 import Spinner from "../spinner";
-import MovieHeader from "../headerMovie";
 
 const styles = {
     gridListRoot: {

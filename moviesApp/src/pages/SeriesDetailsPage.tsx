@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { BaseSeries, MovieT } from "../types/interfaces";
+import { BaseSeries} from "../types/interfaces";
 import { getSeriesDetails } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'

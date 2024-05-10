@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useEffect }from "react";
+import { useQuery } from "react-query";
 import PageTemplate from "../components/templateMovieListPage";
-import { getMovies } from "../api/tmdb-api";
+import { getMovies, getToken, getallreviewsbyreviewer } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../components/movieFilterUI";
 import { DiscoverMovies, ListedMovie } from "../types/interfaces";
-import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 const titleFiltering = {
   name: "title",
@@ -24,7 +23,22 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
+  useEffect(() => {
+    getallreviewsbyreviewer().then((res: any) => {
+      console.log("Response from New App Backend", res);
+    });
+  }, []);
+
+  useEffect(() => {
+    getToken().then((res: any) => {
+      console.log("Response from Auth Backend", res);
+    });
+  }, []);
+  
+  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+    ["discover"], 
+    () => getMovies(1)
+  );
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -37,7 +51,6 @@ const HomePage: React.FC = () => {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
-
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
@@ -57,7 +70,7 @@ const HomePage: React.FC = () => {
         title="Discover Movies"
         movies={displayedMovies}
         action={(movie: ListedMovie) => {
-          return <AddToFavouritesIcon {...movie} />
+          return <AddToFavouritesIcon {...movie} />;
         }}
       />
       <MovieFilterUI
@@ -67,5 +80,5 @@ const HomePage: React.FC = () => {
       />
     </>
   );
-}
+};
 export default HomePage;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import { MovieT, Similar } from "../types/interfaces";
@@ -24,8 +24,9 @@ const MovieDetailsPage: React.FC = () => {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (isError || similarMoviesIsError ||similarMoviesError) {
     return <h1>{(error as Error).message}</h1>;
+    
   }
 
   return (
