@@ -34,13 +34,62 @@ export interface BaseSeries {
   vote_average: number;
   vote_count: number;
 }
+export interface Cast{
+adult: boolean
+gender: number
+id: number
+known_for_department: string
+name: string
+original_name: string
+popularity: number
+profile_path: string
+cast_id: number
+character: string
+credit_id: string
+order: number
+}
+export interface KnownForItem {
+  backdrop_path: string;
+  id: number;
+  original_title: string;
+  overview: string;
+  poster_path: string;
+  media_type: string;
+  adult: boolean;
+  title: string;
+  original_language: string;
+  genre_ids: number[];
+  popularity: number;
+  release_date: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
 
-
+export interface BaseActors {
+  adult: boolean;
+    also_known_as: string[];
+    biography: string;
+    birthday: string;
+    deathday: string | null;
+    gender: number;
+    homepage: string;
+    id: number;
+    imdb_id: string;
+    known_for_department: string;
+    name: string;
+    place_of_birth: string;
+    popularity: number;
+    profile_path: string | null;
+}
 export interface BaseMovieList {
   movies: BaseMovie[];
 }
 export interface BaseSeriesList {
   series: BaseSeries[];
+}
+export interface BaseActorsList{
+  actors:BaseActors[];
 }
 
 export interface MovieT extends BaseMovie {
@@ -95,6 +144,12 @@ export interface ListedMovie extends BaseMovie {
     total_pages: number;
     total_results: number;
     results: BaseSeries[];
+  }
+  interface DiscoverActors {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: BaseActors[];
   }
   interface UpcomingMovies {
     page: number;	
