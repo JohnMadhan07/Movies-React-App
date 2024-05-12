@@ -50,7 +50,7 @@ const images = data as MovieImage[];
             </Typography>
 
 
-            {/* <Grid container spacing={5} style={{ padding: "15px" }}>        
+            <Grid container spacing={5} style={{ padding: "15px" }}>        
                 <Grid item xs={3}>
                     <div style={styles.scrollableContainer}>
                         <ImageList cols={1}>
@@ -61,7 +61,7 @@ const images = data as MovieImage[];
                                     cols={1}
                                 >
                                     <img
-                                        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
+                                        src={`https://image.tmdb.org/t/p/w500/${props.profile_path}`}
                                         alt={'Image alternative'}
                                     />
                                 </ImageListItem>
@@ -69,7 +69,7 @@ const images = data as MovieImage[];
                         </ImageList>
                     </div>
                 </Grid>
-            </Grid>           */}
+            </Grid>          
         </>
     );
 };

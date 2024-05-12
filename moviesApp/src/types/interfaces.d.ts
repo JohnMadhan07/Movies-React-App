@@ -114,6 +114,11 @@ export interface ListedMovie extends BaseMovie {
     genre_ids: number[];
   }
 
+  export interface ListedSeries extends BaseSeries {
+    genre_ids: number[];
+  }
+
+
   export type FilterOption = "title" | "genre";
 
   export interface MovieListPageTemplateProps {

@@ -24,17 +24,17 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
-  // useEffect(() => {
-  //   getallreviewsbyreviewer().then((res: any) => {
-  //     console.log("Response from New App Backend", res);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getallreviewsbyreviewer().then((res: any) => {
+      console.log("Response from New App Backend", res);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   getToken().then((res: any) => {
-  //     console.log("Response from Auth Backend", res);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getToken().then((res: any) => {
+      console.log("Response from Auth Backend", res);
+    });
+  }, []);
   const { page} = useContext(MoviesContext); 
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
     ["discover", page], // Include page number in query key

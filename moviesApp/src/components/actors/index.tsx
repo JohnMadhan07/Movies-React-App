@@ -13,7 +13,8 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import { BaseActors } from "../../types/interfaces";
-import img from '../../images/film-poster-placeholder.png';
+import img from "../../images/film-poster-placeholder.png";
+import Avatar from "@mui/material/Avatar";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -23,10 +24,19 @@ const styles = {
   },
 };
 const ActorsCard: React.FC<BaseActors> = (props) => {
-  const actors ={...props};
+  const actors = { ...props, favourite: false};
   return (
     <Card sx={styles.card}>
-      <CardHeader title={props.name} />
+      <CardHeader
+        avatar={
+          actors.favourite ? (
+            <Avatar sx={styles.avatar}>
+              <FavoriteIcon />
+            </Avatar>
+          ) : null
+        }
+        title={props.name}
+      />
       <CardMedia
         sx={styles.media}
         image={
@@ -52,7 +62,7 @@ const ActorsCard: React.FC<BaseActors> = (props) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" >
+        <IconButton aria-label="add to favorites">
           <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
         <Link to={`/actors/${actors.id}`}>
@@ -63,6 +73,6 @@ const ActorsCard: React.FC<BaseActors> = (props) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default ActorsCard;
