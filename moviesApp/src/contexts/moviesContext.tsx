@@ -6,16 +6,19 @@ interface MovieContextInterface {
     setPage: (page: number) => void;
     favourites: number[];
     mustWatch: number[];
-    addToFavourites: ((movie: ListedMovie) => void);
-    addTomustWatch: ((movie: ListedMovie) => void);
-    removeFromFavourites: ((movie: ListedMovie) => void);
-    addReview: ((movie: MovieT, review: Review) => void);
+    myReviews: { [movieId: number]: Review }; 
+    addToFavourites: (movie: ListedMovie) => void;
+    addTomustWatch: (movie: ListedMovie) => void;
+    removeFromFavourites: (movie: ListedMovie) => void;
+    addReview: (movie: MovieT, review: Review) => void;
 }
+
 const initialContextState: MovieContextInterface = {
     page: 1,
     setPage: () => {},
     favourites: [],
     mustWatch: [],
+    myReviews: {}, // Initialize myReviews as an empty object
     addToFavourites: (movie) => { movie.id },
     addTomustWatch: (movie) => { movie.id },
     removeFromFavourites: (movie) => { movie.id },
@@ -25,11 +28,11 @@ const initialContextState: MovieContextInterface = {
 export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);
 
 const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
-    const [myReviews, setMyReviews] = useState<Review[]>([] ); // NEW
+    const [myReviews, setMyReviews] = useState<{ [movieId: number]: Review }>({}); 
     const [favourites, setFavourites] = useState<number[]>([]);
     const [mustWatch, setMustWatch] = useState<number[]>([]);
-    const [page, setPage] = useState<number>(1); 
-   
+    const [page, setPage] = useState<number>(1);
+
     const addToFavourites = (movie: ListedMovie) => {
         let updatedFavourites = [...favourites];
         if (!favourites.includes(movie.id)) {
@@ -37,7 +40,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         }
         setFavourites(updatedFavourites);
     };
-    
+
     const addTomustWatch = (movie: ListedMovie) => {
         let updatedMustWatch = [...mustWatch];
         if (!mustWatch.includes(movie.id)) {
@@ -63,6 +66,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
                 setPage,
                 favourites,
                 mustWatch,
+                myReviews, 
                 addToFavourites,
                 removeFromFavourites,
                 addReview,
