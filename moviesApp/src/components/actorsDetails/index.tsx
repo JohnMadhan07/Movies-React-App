@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Typography from "@mui/material/Typography";
-import { BaseActors, MovieImage } from "../../types/interfaces";
+import { BaseActors, MovieImage, SeriesImage } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../spinner";
 import { getActorsImages } from "../../api/tmdb-api";
@@ -24,8 +24,8 @@ const styles = {
     },
 };
 const actorsDetails: React.FC<BaseActors> = (props) => {
-  const actors=props;
-  const { data, error, isLoading, isError } = useQuery<MovieImage[], Error>(
+    const actors=props;
+  const { data, error, isLoading, isError } = useQuery<SeriesImage[], Error>(
     ["images", actors.id],
     () => getActorsImages(actors.id)
 );
@@ -33,12 +33,11 @@ const actorsDetails: React.FC<BaseActors> = (props) => {
 if (isLoading) {
     return <Spinner />;
 }
-
 if (isError) {
     return <h1>{error.message}</h1>;
 }
 
-const images = data as MovieImage[];
+const images = data as SeriesImage[];
     return (
         <>
             <Typography variant="h5" component="h3">
@@ -61,7 +60,7 @@ const images = data as MovieImage[];
                                     cols={1}
                                 >
                                     <img
-                                        src={`https://image.tmdb.org/t/p/w500/${props.profile_path}`}
+                                        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
                                         alt={'Image alternative'}
                                     />
                                 </ImageListItem>

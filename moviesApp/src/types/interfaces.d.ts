@@ -110,6 +110,15 @@ export interface MovieImage {
   vote_count?: number;
   width?: number;
 }
+export interface SeriesImage {
+  file_path: string;
+  aspect_ratio?: number; //some props are optional...
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
 export interface ListedMovie extends BaseMovie {
     genre_ids: number[];
   }

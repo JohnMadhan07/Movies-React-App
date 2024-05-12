@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -37,6 +38,7 @@ const SiteHeader: React.FC = () => {
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "TV Series", path: "/series" },
     { label: "Actors", path: "/actors" },
+    { label: "Search", path: "/search" }, // Added search option
   ];
 
   const handleMenuSelect = (pageURL: string) => {
@@ -45,6 +47,10 @@ const SiteHeader: React.FC = () => {
 
   const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleSearch = () => {
+    navigate("/search");
   };
 
   return (
@@ -96,22 +102,31 @@ const SiteHeader: React.FC = () => {
             </>
           ) : (
             <>
-              {menuOptions.map((opt) => (
-                <Button
-                  key={opt.label}
-                  color="inherit"
-                  onClick={() => handleMenuSelect(opt.path)}
-                >
-                  {opt.label}
-                </Button>
-              ))}
+              {menuOptions.map((opt) =>
+                opt.label === "Search" ? (
+                  <IconButton
+                    key={opt.label}
+                    aria-label={opt.label}
+                    onClick={handleSearch}
+                    color="inherit"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                ) : (
+                  <Button
+                    key={opt.label}
+                    color="inherit"
+                    onClick={() => handleMenuSelect(opt.path)}
+                  >
+                    {opt.label}
+                  </Button>
+                )
+              )}
             </>
           )}
         </Toolbar>
       </AppBar>
       <Offset />
-
-      {/* <div className={classes.offset} /> */}
     </>
   );
 };

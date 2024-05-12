@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import { BaseActors } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
-import Avatar from "@mui/material/Avatar";
+
 
 const styles = {
   card: { maxWidth: 345 },
@@ -24,19 +24,10 @@ const styles = {
   },
 };
 const ActorsCard: React.FC<BaseActors> = (props) => {
-  const actors = { ...props, favourite: false};
+  const actors ={...props};
   return (
     <Card sx={styles.card}>
-      <CardHeader
-        avatar={
-          actors.favourite ? (
-            <Avatar sx={styles.avatar}>
-              <FavoriteIcon />
-            </Avatar>
-          ) : null
-        }
-        title={props.name}
-      />
+      <CardHeader title={props.name} />
       <CardMedia
         sx={styles.media}
         image={

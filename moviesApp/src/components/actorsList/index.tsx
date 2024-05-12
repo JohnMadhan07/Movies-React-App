@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import { BaseActorsList } from "../../types/interfaces";
-import ActorsCard from "../actors";
+import ActorsCard from "../actorsCard";
 
 
 
