@@ -9,6 +9,7 @@ import { MovieT } from "../../types/interfaces";
 import Avatar from "@mui/material/Avatar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+
 const styles = {
   root: {
     display: "flex",
@@ -23,8 +24,11 @@ const styles = {
 };
 
 const MovieHeader: React.FC<MovieT> = (props) => {
+ 
   const movies = JSON.parse(localStorage.getItem("favourites") || "[]");
   const isFavorite = movies.some((movie: MovieT) => movie.id === props.id);
+
+
   return (
     <Paper component="div" sx={styles.root}>
        {isFavorite && (
@@ -45,7 +49,7 @@ const MovieHeader: React.FC<MovieT> = (props) => {
         <br />
         <span>{`${props.tagline}`} </span>
       </Typography>
-      <IconButton aria-label="go forward">
+      <IconButton aria-label="go forward" >
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>
     </Paper>

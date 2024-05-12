@@ -1,4 +1,4 @@
-import React, { useEffect }from "react";
+import React, { useContext, useEffect }from "react";
 import { useQuery } from "react-query";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies, getToken, getallreviewsbyreviewer } from "../api/tmdb-api";
@@ -10,6 +10,7 @@ import MovieFilterUI, {
 import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import { MoviesContext } from "../contexts/moviesContext";
 
 const titleFiltering = {
   name: "title",
@@ -23,21 +24,21 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
-  useEffect(() => {
-    getallreviewsbyreviewer().then((res: any) => {
-      console.log("Response from New App Backend", res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getallreviewsbyreviewer().then((res: any) => {
+  //     console.log("Response from New App Backend", res);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    getToken().then((res: any) => {
-      console.log("Response from Auth Backend", res);
-    });
-  }, []);
-  
+  // useEffect(() => {
+  //   getToken().then((res: any) => {
+  //     console.log("Response from Auth Backend", res);
+  //   });
+  // }, []);
+  const { page} = useContext(MoviesContext); 
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    ["discover"], 
-    () => getMovies(1)
+    ["discover", page], // Include page number in query key
+    () => getMovies(page)
   );
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
